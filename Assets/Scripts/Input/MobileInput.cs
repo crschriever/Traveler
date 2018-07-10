@@ -2,27 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MobileInput : InputManager {
-	
-	public override bool IsDragging() {
-		if (Input.touchCount > 0) {
-			switch(Input.GetTouch(0).phase) {
-				case TouchPhase.Began:
-				case TouchPhase.Stationary:
-				case TouchPhase.Moved:
-					return true;
-					break;
-				default:
-					return false;
-			}
-		}
+public class MobileInput : InputManager
+{
 
-		return true;
-	}
+    public override bool IsDragging()
+    {
+        if (Input.touchCount > 0)
+        {
+            switch (Input.GetTouch(0).phase)
+            {
+                case TouchPhase.Began:
+                case TouchPhase.Stationary:
+                case TouchPhase.Moved:
+                    return true;
+                    break;
+                default:
+                    return false;
+            }
+        }
 
-	public override Vector2 InputPosition() {
-		Vector3 touchPosition = Input.GetTouch(0).position;
-		touchPosition = Camera.main.ScreenToWorldPoint(touchPosition);
-		return new Vector2(touchPosition.x, touchPosition.y);
-	}
+        return true;
+    }
+
+    public override bool DragEnded()
+    {
+        if (Input.touchCount > 0)
+        {
+            switch (Input.GetTouch(0).phase)
+            {
+                case TouchPhase.Began:
+                case TouchPhase.Stationary:
+                case TouchPhase.Moved:
+                    return false;
+                    break;
+                default:
+                    return true;
+            }
+        }
+
+        return true;
+    }
+
+    public override Vector3 InputPosition()
+    {
+        Vector3 touchPosition = Input.GetTouch(0).position;
+        return Camera.main.ScreenToWorldPoint(touchPosition);
+    }
 }
