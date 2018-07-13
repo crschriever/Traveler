@@ -33,11 +33,21 @@ public class Missile : MonoBehaviour
 
         if (timeLeft <= 0)
         {
-            Destroy(gameObject);
-            StateMachine.instance.MissileExploded(this);
+            Explode();
         }
 
         gravity.Update();
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Explode();
+    }
+
+    private void Explode()
+    {
+        Destroy(gameObject);
+        StateMachine.instance.MissileExploded(this);
     }
 
     public Ship GetParentShip()
