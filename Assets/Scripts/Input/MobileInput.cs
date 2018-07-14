@@ -5,6 +5,11 @@ using UnityEngine;
 public class MobileInput : InputManager
 {
 
+    public override void Update()
+    {
+
+    }
+
     public override bool IsDragging()
     {
         if (Input.touchCount > 0)
@@ -34,7 +39,6 @@ public class MobileInput : InputManager
                 case TouchPhase.Stationary:
                 case TouchPhase.Moved:
                     return false;
-                    break;
                 default:
                     return true;
             }
@@ -43,9 +47,29 @@ public class MobileInput : InputManager
         return true;
     }
 
+    public override bool TapEnded()
+    {
+        return true;
+    }
+
     public override Vector3 InputPosition()
     {
         Vector3 touchPosition = Input.GetTouch(0).position;
         return Camera.main.ScreenToWorldPoint(touchPosition);
+    }
+
+    public override float ZoomSpeed()
+    {
+        return 0;
+    }
+
+    public override Vector3 CameraMove()
+    {
+        return Vector3.zero;
+    }
+
+    public override bool CameraMoveEnded()
+    {
+        return true;
     }
 }

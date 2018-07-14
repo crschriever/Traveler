@@ -6,16 +6,15 @@ public class BattleManager : MonoBehaviour
 {
     public static float G = 1f;
 
+    public static int mapWidth;
+    public static int mapHeight;
+
     public static BattleManager instance = null;
-
     public static InputManager input = new LaptopInput();
-
     public StateMachine stateMachine;
-
     public ShipPopulator shipPopulator;
 
     public List<Ship> ships;
-
     public GameObject[] gravitySources;
 
     // Use this for initialization
@@ -37,5 +36,9 @@ public class BattleManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+    }
+    void Update()
+    {
+        input.Update();
     }
 }

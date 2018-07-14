@@ -26,4 +26,14 @@ public class BattleStateMachine : StateMachine
     {
         missile.GetParentShip().SetSelected(true);
     }
+
+    public override bool IsMoveState()
+    {
+        return false;
+    }
+
+    public override bool IsAimState()
+    {
+        return true;
+    }
 }

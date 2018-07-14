@@ -21,5 +21,7 @@ public abstract class StateMachine : MonoBehaviour
     public abstract void Init(List<Ship> ships);
     public abstract void ShipTookAim(Ship ship);
     public abstract void MissileExploded(Missile missile);
+    public abstract bool IsMoveState();
+    public abstract bool IsAimState();
 
 }

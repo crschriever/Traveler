@@ -7,6 +7,10 @@ public class Ship : MonoBehaviour
     public GameObject aim;
     public GameObject missilePrefab;
 
+    public LineRenderer lineRenderer;
+
+    private Collider2D collider;
+
     public float aimDistance;
 
     private bool selected = false;
@@ -14,17 +18,52 @@ public class Ship : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        collider = GetComponent<Collider2D>();
+        lineRenderer = GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (!selected)
         {
             return;
         }
 
-        if (BattleManager.input.IsDragging())
+        bool overSelf = collider.OverlapPoint(BattleManager.input.InputPosition());
+
+        if (!overSelf)
+        {
+            if (StateMachine.instance.IsMoveState())
+            {
+                UpdateMove();
+            }
+            else if (StateMachine.instance.IsAimState())
+            {
+                UpdateAim();
+            }
+        }
+    }
+
+    private void UpdateMove()
+    {
+
+        Vector3 inputPosition = BattleManager.input.InputPosition();
+        inputPosition.z = transform.position.z;
+
+        Vector3[] positions = new Vector3[] { transform.position, inputPosition };
+        lineRenderer.SetPositions(positions);
+    }
+
+    private void UpdateAim()
+    {
+        if (BattleManager.input.TapEnded())
+        {
+            Aim(BattleManager.input.InputPosition());
+            BattleManager.instance.stateMachine.ShipTookAim(this);
+        }
+        else if (BattleManager.input.IsDragging())
         {
             Aim(BattleManager.input.InputPosition());
         }
