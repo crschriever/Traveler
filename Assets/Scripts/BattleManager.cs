@@ -6,13 +6,12 @@ public class BattleManager : MonoBehaviour
 {
     public static float G = 1f;
 
-    public static int mapWidth;
-    public static int mapHeight;
-
     public static BattleManager instance = null;
     public static InputManager input = new LaptopInput();
     public StateMachine stateMachine;
     public ShipPopulator shipPopulator;
+
+    public GameObject map;
 
     public List<Ship> ships;
     public GameObject[] gravitySources;

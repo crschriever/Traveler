@@ -41,7 +41,10 @@ public class Missile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Explode();
+        if (other.tag == "Inanimate" || other.tag == "Ship")
+        {
+            Explode();
+        }
     }
 
     private void Explode()

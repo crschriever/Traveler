@@ -90,13 +90,13 @@ public class Ship : MonoBehaviour
 
     public void Shoot(Vector3 point)
     {
-        Vector2 direction = point - transform.position;
+        Vector3 direction = point - transform.position;
         float angle = FindAimAngle(direction);
 
         GameObject newMissile = Instantiate(missilePrefab);
         newMissile.GetComponent<Missile>().SetParentShip(this);
 
-        Vector2 position = new Vector2(transform.position.x, transform.position.y);
+        Vector3 position = new Vector3(transform.position.x, transform.position.y, newMissile.transform.position.z);
         newMissile.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         newMissile.transform.position = position + (direction.normalized * aimDistance);
     }

@@ -10,6 +10,7 @@ public class GravityEffected
     public GravityEffected(Transform transform, Rigidbody2D rigidbody)
     {
         this.transform = transform;
+        Debug.Log(transform.position);
         this.rigidbody = rigidbody;
     }
 
@@ -26,6 +27,7 @@ public class GravityEffected
 
             float force = BattleManager.G * masses * inverseDistanceSquared;
 
+            Debug.Log(transform.position);
             rigidbody.AddForce(force * Time.deltaTime * direction);
         }
     }
