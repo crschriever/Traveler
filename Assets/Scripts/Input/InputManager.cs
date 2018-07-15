@@ -22,6 +22,11 @@ public abstract class InputManager
         }
     }
 
+    public bool DragStarted()
+    {
+        return Input.GetMouseButtonDown(0);
+    }
+
     public bool IsDragging()
     {
         // Mouse not down or zooming
@@ -31,7 +36,7 @@ public abstract class InputManager
         }
 
         // If click just started or hasn't moved yet
-        if (Input.GetMouseButtonDown(0) || Input.mousePosition.Equals(startingMousePosition))
+        if (Input.GetMouseButtonDown(0) /*|| Input.mousePosition.Equals(startingMousePosition)*/)
         {
             return false;
         }
@@ -41,7 +46,7 @@ public abstract class InputManager
 
     public bool DragEnded()
     {
-        return /*!IsZooming()*/ && !Input.mousePosition.Equals(startingMousePosition) && Input.GetMouseButtonUp(0);
+        return /*!IsZooming() &&*/ /*!Input.mousePosition.Equals(startingMousePosition) &&*/ Input.GetMouseButtonUp(0);
     }
 
     public Vector3 DragDistance()
@@ -52,7 +57,7 @@ public abstract class InputManager
 
     public bool TapEnded()
     {
-        return /*!IsZooming() &&*/ Input.mousePosition.Equals(startingMousePosition) && Input.GetMouseButtonUp(0);
+        return /*!IsZooming() &&*/ /*Input.mousePosition.Equals(startingMousePosition) &&*/ Input.GetMouseButtonUp(0);
     }
 
     public Vector3 InputPosition()

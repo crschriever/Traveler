@@ -35,8 +35,11 @@ public class Missile : MonoBehaviour
         {
             Explode();
         }
+    }
 
-        gravity.Update();
+    void FixedUpdate()
+    {
+        gravity.FixedUpdate();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -50,7 +53,6 @@ public class Missile : MonoBehaviour
     private void Explode()
     {
         Destroy(gameObject);
-        StateMachine.instance.MissileExploded(this);
     }
 
     public Ship GetParentShip()

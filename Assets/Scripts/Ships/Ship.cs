@@ -7,71 +7,17 @@ public class Ship : MonoBehaviour
     public GameObject aim;
     public GameObject missilePrefab;
 
-    public LineRenderer lineRenderer;
-
-    private Collider2D myCollider;
-
     public float aimDistance;
-
-    private int selectedAction = 0;
 
     // Use this for initialization
     void Start()
     {
-        myCollider = GetComponent<Collider2D>();
-        lineRenderer = GetComponent<LineRenderer>();
+        aim.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        bool overSelf = myCollider.OverlapPoint(BattleManager.input.InputPosition());
-        if (BattleManager.input.TapEnded() && overSelf)
-        {
-            SetSelectedAction(0);
-        }
-
-        if (selectedAction == 0)
-        {
-            return;
-        }
-
-        if (StateMachine.instance.IsMoveState())
-        {
-            UpdateMove();
-        }
-        else if (StateMachine.instance.IsAimState())
-        {
-            UpdateAim();
-        }
-
-    }
-
-    private void UpdateMove()
-    {
-        Vector3 inputPosition = BattleManager.input.InputPosition();
-        inputPosition.z = transform.position.z;
-
-        Vector3[] positions = new Vector3[] { transform.position, inputPosition };
-        lineRenderer.SetPositions(positions);
-    }
-
-    private void UpdateAim()
-    {
-        if (BattleManager.input.TapEnded())
-        {
-            Aim(BattleManager.input.InputPosition());
-            Shoot();
-        }
-        else if (BattleManager.input.IsDragging())
-        {
-            Aim(BattleManager.input.InputPosition());
-        }
-        else if (BattleManager.input.DragEnded())
-        {
-            Shoot();
-        }
     }
 
     public void Aim(Vector3 point)
@@ -114,13 +60,9 @@ public class Ship : MonoBehaviour
         transform.Translate(Vector2.right * Time.deltaTime);
     }
 
-    public void SetSelectedAction(int selectedAction)
+    public void SetAimActive(bool active)
     {
-        this.selectedAction = selectedAction;
-    }
-
-    public int IsSelectedAction()
-    {
-        return selectedAction;
+        aim.SetActive(active);
     }
 }
+
