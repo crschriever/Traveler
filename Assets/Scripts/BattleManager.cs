@@ -7,7 +7,7 @@ public class BattleManager : MonoBehaviour
     public static float G = 1f;
 
     public static BattleManager instance = null;
-    public static InputManager input = new LaptopInput();
+    public static InputManager input;
     public StateMachine stateMachine;
     public ShipPopulator shipPopulator;
 
@@ -22,19 +22,32 @@ public class BattleManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+
+            if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                input = new MobileInput();
+            }
+            else
+            {
+                input = new LaptopInput();
+            }
+
             GameObject[] shipGameObjects = shipPopulator.SpawnShips();
             foreach (GameObject shipGameObject in shipGameObjects)
             {
                 ships.Add(shipGameObject.GetComponent<Ship>());
             }
-
-            BattleStateMachine.instance.Init(ships);
         }
         else if (instance != this)
         {
             Destroy(gameObject);
         }
 
+    }
+
+    void Start()
+    {
+        BattleStateMachine.instance.Init(ships);
     }
     void Update()
     {

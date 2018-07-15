@@ -24,4 +24,8 @@ public abstract class StateMachine : MonoBehaviour
     public abstract bool IsMoveState();
     public abstract bool IsAimState();
 
+    public abstract void ShipSelected(Ship ship);
+    public abstract void ShipDeselected(Ship ship);
+    public abstract bool IsSelection();
+
 }

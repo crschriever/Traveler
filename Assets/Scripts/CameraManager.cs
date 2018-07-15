@@ -24,9 +24,6 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         camera = GetComponent<Camera>();
-
-        screenAspect = (float)Screen.width / (float)Screen.height;
-
         Transform mapTransform = BattleManager.instance.map.transform;
         mapBounds = BattleManager.instance.map.GetComponent<BoxCollider2D>().bounds;
         minPos = mapTransform.position - new Vector3(mapBounds.extents.x, mapBounds.extents.y);
@@ -36,9 +33,15 @@ public class CameraManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        camera.orthographicSize -= BattleManager.input.ZoomSpeed();
+        screenAspect = (float)Screen.width / (float)Screen.height;
 
-        if (BattleManager.input.CameraMove() != Vector3.zero)
+        if (BattleManager.input.ZoomSpeed() != 0)
+        {
+            camera.orthographicSize -= BattleManager.input.ZoomSpeed();
+            orthoVelocity = 0;
+        }
+
+        if (!StateMachine.instance.IsSelection() && BattleManager.input.IsDragging())
         {
             if (!moveStarted)
             {
@@ -46,10 +49,12 @@ public class CameraManager : MonoBehaviour
                 moveStartPosition = camera.transform.position;
                 moveStarted = true;
             }
-            camera.transform.position = BattleManager.input.CameraMove() + moveStartPosition;
+            camera.transform.position = BattleManager.input.DragDistance() + moveStartPosition;
+            xVelocity = 0;
+            yVelocity = 0;
         }
 
-        if (BattleManager.input.CameraMoveEnded())
+        if (BattleManager.input.DragEnded())
         {
             moveStarted = false;
         }
@@ -137,4 +142,5 @@ public class CameraManager : MonoBehaviour
         camera.transform.position = newPosition;
 
     }
+
 }

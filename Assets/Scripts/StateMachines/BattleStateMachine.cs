@@ -8,12 +8,12 @@ public class BattleStateMachine : StateMachine
 
     private Ship enemyShip;
 
+    private bool selection = false;
+
     public override void Init(List<Ship> ships)
     {
         playerShip = ships[0];
         enemyShip = ships[0];
-
-        playerShip.SetSelected(true);
     }
 
     public override void ShipTookAim(Ship ship)
@@ -24,7 +24,6 @@ public class BattleStateMachine : StateMachine
 
     public override void MissileExploded(Missile missile)
     {
-        missile.GetParentShip().SetSelected(true);
     }
 
     public override bool IsMoveState()
@@ -36,4 +35,20 @@ public class BattleStateMachine : StateMachine
     {
         return true;
     }
+
+    public override void ShipSelected(Ship ship)
+    {
+        selection = true;
+    }
+
+    public override void ShipDeselected(Ship ship)
+    {
+        selection = false;
+    }
+
+    public override bool IsSelection()
+    {
+        return selection;
+    }
+
 }

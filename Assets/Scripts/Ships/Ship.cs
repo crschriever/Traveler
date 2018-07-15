@@ -26,12 +26,17 @@ public class Ship : MonoBehaviour
     void Update()
     {
 
+        bool overSelf = collider.OverlapPoint(BattleManager.input.InputPosition());
+        if (BattleManager.input.TapEnded() && overSelf)
+        {
+            SetSelected(!selected);
+        }
+
         if (!selected)
         {
             return;
         }
 
-        bool overSelf = collider.OverlapPoint(BattleManager.input.InputPosition());
 
         if (!overSelf)
         {
@@ -75,10 +80,11 @@ public class Ship : MonoBehaviour
 
     public void Aim(Vector3 point)
     {
-        Vector2 direction = point - transform.position;
+        Vector3 direction = point - transform.position;
+        direction.z = 0;
         float angle = FindAimAngle(direction);
 
-        Vector2 position = new Vector2(transform.position.x, transform.position.y);
+        Vector3 position = new Vector3(transform.position.x, transform.position.y, aim.transform.position.z);
         aim.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         aim.transform.position = position + (direction.normalized * aimDistance);
     }
@@ -91,6 +97,7 @@ public class Ship : MonoBehaviour
     public void Shoot(Vector3 point)
     {
         Vector3 direction = point - transform.position;
+        direction.z = 0;
         float angle = FindAimAngle(direction);
 
         GameObject newMissile = Instantiate(missilePrefab);
@@ -113,6 +120,14 @@ public class Ship : MonoBehaviour
 
     public void SetSelected(bool selected)
     {
+        if (selected)
+        {
+            StateMachine.instance.ShipSelected(this);
+        }
+        else
+        {
+            StateMachine.instance.ShipDeselected(this);
+        }
         this.selected = selected;
     }
 

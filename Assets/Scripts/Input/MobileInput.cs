@@ -4,72 +4,36 @@ using UnityEngine;
 
 public class MobileInput : InputManager
 {
-
-    public override void Update()
-    {
-
-    }
-
-    public override bool IsDragging()
-    {
-        if (Input.touchCount > 0)
-        {
-            switch (Input.GetTouch(0).phase)
-            {
-                case TouchPhase.Began:
-                case TouchPhase.Stationary:
-                case TouchPhase.Moved:
-                    return true;
-                    break;
-                default:
-                    return false;
-            }
-        }
-
-        return true;
-    }
-
-    public override bool DragEnded()
-    {
-        if (Input.touchCount > 0)
-        {
-            switch (Input.GetTouch(0).phase)
-            {
-                case TouchPhase.Began:
-                case TouchPhase.Stationary:
-                case TouchPhase.Moved:
-                    return false;
-                default:
-                    return true;
-            }
-        }
-
-        return true;
-    }
-
-    public override bool TapEnded()
-    {
-        return true;
-    }
-
-    public override Vector3 InputPosition()
-    {
-        Vector3 touchPosition = Input.GetTouch(0).position;
-        return Camera.main.ScreenToWorldPoint(touchPosition);
-    }
-
     public override float ZoomSpeed()
     {
-        return 0;
+        if (Input.touchCount == 2)
+        {
+            // Store both touches.
+            Touch touchZero = Input.GetTouch(0);
+            Touch touchOne = Input.GetTouch(1);
+
+            // Find the position in the previous frame of each touch.
+            Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+            Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+
+            // Find the magnitude of the vector (the distance) between the touches in each frame.
+            float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+            float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
+
+            // Find the difference in the distances between each frame.
+            float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
+
+            // ... change the orthographic size based on the change in distance between the touches.
+            return deltaMagnitudeDiff * -.01f;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
-    public override Vector3 CameraMove()
+    protected override bool IsZooming()
     {
-        return Vector3.zero;
-    }
-
-    public override bool CameraMoveEnded()
-    {
-        return true;
+        return Input.touchCount == 2;
     }
 }
