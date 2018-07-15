@@ -13,7 +13,7 @@ public class GravityEffected
         this.rigidbody = rigidbody;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         foreach (GameObject gravitySource in BattleManager.instance.gravitySources)
         {
@@ -26,7 +26,7 @@ public class GravityEffected
 
             float force = BattleManager.G * masses * inverseDistanceSquared;
 
-            rigidbody.AddForce(force * Time.deltaTime * direction);
+            rigidbody.AddForce(force * Time.fixedDeltaTime * direction);
         }
     }
 }

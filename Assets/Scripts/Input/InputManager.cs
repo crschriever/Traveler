@@ -25,7 +25,7 @@ public abstract class InputManager
     public bool IsDragging()
     {
         // Mouse not down or zooming
-        if (!Input.GetMouseButton(0) || IsZooming())
+        if (!Input.GetMouseButton(0) /*|| IsZooming()*/)
         {
             return false;
         }
@@ -41,7 +41,7 @@ public abstract class InputManager
 
     public bool DragEnded()
     {
-        return !IsZooming() && !Input.mousePosition.Equals(startingMousePosition) && Input.GetMouseButtonUp(0);
+        return /*!IsZooming()*/ && !Input.mousePosition.Equals(startingMousePosition) && Input.GetMouseButtonUp(0);
     }
 
     public Vector3 DragDistance()
@@ -52,7 +52,7 @@ public abstract class InputManager
 
     public bool TapEnded()
     {
-        return !IsZooming() && Input.mousePosition.Equals(startingMousePosition) && Input.GetMouseButtonUp(0);
+        return /*!IsZooming() &&*/ Input.mousePosition.Equals(startingMousePosition) && Input.GetMouseButtonUp(0);
     }
 
     public Vector3 InputPosition()
@@ -61,7 +61,7 @@ public abstract class InputManager
         return Camera.main.ScreenToWorldPoint(mousePosition);
     }
 
-    public abstract float ZoomSpeed();
+    // public abstract float ZoomSpeed();
 
-    protected abstract bool IsZooming();
+    // protected abstract bool IsZooming();
 }

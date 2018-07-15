@@ -8,7 +8,7 @@ public class BattleManager : MonoBehaviour
 
     public static BattleManager instance = null;
     public static InputManager input;
-    public StateMachine stateMachine;
+
     public ShipPopulator shipPopulator;
 
     public GameObject map;
@@ -45,10 +45,6 @@ public class BattleManager : MonoBehaviour
 
     }
 
-    void Start()
-    {
-        BattleStateMachine.instance.Init(ships);
-    }
     void Update()
     {
         input.Update();

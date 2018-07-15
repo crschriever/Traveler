@@ -9,16 +9,16 @@ public class Ship : MonoBehaviour
 
     public LineRenderer lineRenderer;
 
-    private Collider2D collider;
+    private Collider2D myCollider;
 
     public float aimDistance;
 
-    private bool selected = false;
+    private int selectedAction = 0;
 
     // Use this for initialization
     void Start()
     {
-        collider = GetComponent<Collider2D>();
+        myCollider = GetComponent<Collider2D>();
         lineRenderer = GetComponent<LineRenderer>();
     }
 
@@ -26,34 +26,30 @@ public class Ship : MonoBehaviour
     void Update()
     {
 
-        bool overSelf = collider.OverlapPoint(BattleManager.input.InputPosition());
+        bool overSelf = myCollider.OverlapPoint(BattleManager.input.InputPosition());
         if (BattleManager.input.TapEnded() && overSelf)
         {
-            SetSelected(!selected);
+            SetSelectedAction(0);
         }
 
-        if (!selected)
+        if (selectedAction == 0)
         {
             return;
         }
 
-
-        if (!overSelf)
+        if (StateMachine.instance.IsMoveState())
         {
-            if (StateMachine.instance.IsMoveState())
-            {
-                UpdateMove();
-            }
-            else if (StateMachine.instance.IsAimState())
-            {
-                UpdateAim();
-            }
+            UpdateMove();
         }
+        else if (StateMachine.instance.IsAimState())
+        {
+            UpdateAim();
+        }
+
     }
 
     private void UpdateMove()
     {
-
         Vector3 inputPosition = BattleManager.input.InputPosition();
         inputPosition.z = transform.position.z;
 
@@ -66,7 +62,7 @@ public class Ship : MonoBehaviour
         if (BattleManager.input.TapEnded())
         {
             Aim(BattleManager.input.InputPosition());
-            BattleManager.instance.stateMachine.ShipTookAim(this);
+            Shoot();
         }
         else if (BattleManager.input.IsDragging())
         {
@@ -74,7 +70,7 @@ public class Ship : MonoBehaviour
         }
         else if (BattleManager.input.DragEnded())
         {
-            BattleManager.instance.stateMachine.ShipTookAim(this);
+            Shoot();
         }
     }
 
@@ -118,21 +114,13 @@ public class Ship : MonoBehaviour
         transform.Translate(Vector2.right * Time.deltaTime);
     }
 
-    public void SetSelected(bool selected)
+    public void SetSelectedAction(int selectedAction)
     {
-        if (selected)
-        {
-            StateMachine.instance.ShipSelected(this);
-        }
-        else
-        {
-            StateMachine.instance.ShipDeselected(this);
-        }
-        this.selected = selected;
+        this.selectedAction = selectedAction;
     }
 
-    public bool IsSelected()
+    public int IsSelectedAction()
     {
-        return selected;
+        return selectedAction;
     }
 }
