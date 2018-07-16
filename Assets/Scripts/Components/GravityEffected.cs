@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GravityEffected
 {
+
+    const float RADIUS_POWER = 5.0f / 2.0f;
+
     private Transform transform;
     private Rigidbody2D rigidbody;
 
@@ -22,7 +25,7 @@ public class GravityEffected
             float distanceMagnitude = distance.magnitude;
 
             float masses = rigidbody.mass * gravitySource.GetComponent<Rigidbody2D>().mass;
-            float inverseDistanceSquared = Mathf.Pow(distanceMagnitude, -2);
+            float inverseDistanceSquared = Mathf.Pow(distanceMagnitude, -RADIUS_POWER);
 
             float force = BattleManager.G * masses * inverseDistanceSquared;
 

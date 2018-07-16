@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    public static float G = 1f;
+    public static float G = 1.5f;
 
     public static BattleManager instance = null;
     public static InputManager input;
@@ -26,6 +26,7 @@ public class BattleManager : MonoBehaviour
             if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
                 input = new MobileInput();
+                Screen.orientation = ScreenOrientation.Landscape;
             }
             else
             {
