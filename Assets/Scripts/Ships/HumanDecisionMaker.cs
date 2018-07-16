@@ -64,21 +64,7 @@ public class HumanDecisionMaker : DecisionMaker
 
     private void UpdateMove()
     {
-        if (BattleManager.input.IsDragging())
-        {
-            AimMove();
-        }
-        else if (BattleManager.input.DragEnded())
-        {
-            if (InputOverSelf())
-            {
-                Deselect();
-            }
-            else
-            {
-                Move();
-            }
-        }
+
     }
 
     private void AimMove()
@@ -97,6 +83,15 @@ public class HumanDecisionMaker : DecisionMaker
 
     private void UpdateAim()
     {
+        if (InputOverSelf())
+        {
+            SetAimActive(false);
+        }
+        else
+        {
+            SetAimActive(true);
+        }
+
         if (BattleManager.input.IsDragging())
         {
             Aim(BattleManager.input.InputPosition());
@@ -108,6 +103,10 @@ public class HumanDecisionMaker : DecisionMaker
             {
                 Shoot();
             }
+        }
+        else if (BattleManager.input.TapEnded())
+        {
+            Deselect();
         }
     }
 

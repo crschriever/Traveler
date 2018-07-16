@@ -52,7 +52,7 @@ public class Missile : MonoBehaviour
 
     private void Explode()
     {
-        //Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     public Ship GetParentShip()
