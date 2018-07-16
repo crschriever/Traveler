@@ -13,7 +13,6 @@ public class Selector : MonoBehaviour
 
     void Start()
     {
-        decisionMaker = GetComponent<HumanDecisionMaker>();
         myCollider = GetComponent<Collider2D>();
     }
 

@@ -40,6 +40,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 280647941
+    locked: 0
+  - name: Ship Body
+    uniqueID: 3231742487
+    locked: 0
+  - name: Ship Outline
+    uniqueID: 935341765
+    locked: 0
+  - name: Ship
+    uniqueID: 1433751355
+    locked: 0
+  - name: Weapon
+    uniqueID: 2902836447
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

@@ -23,7 +23,7 @@ public class Missile : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         gravity = new GravityEffected(transform, rigidbody);
 
-        rigidbody.velocity = STARTING_VELOCITY * (transform.rotation * Vector3.up);
+        rigidbody.velocity = STARTING_VELOCITY * transform.up;
     }
 
     // Update is called once per frame
@@ -52,7 +52,7 @@ public class Missile : MonoBehaviour
 
     private void Explode()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     public Ship GetParentShip()

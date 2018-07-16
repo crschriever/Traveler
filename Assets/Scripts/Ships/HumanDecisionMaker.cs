@@ -10,6 +10,9 @@ public class HumanDecisionMaker : DecisionMaker
     private Collider2D myCollider;
     public LineRenderer lineRenderer;
 
+    public GameObject aim;
+    private float aimAngle;
+
     private const int NOT_SELECTED = 0;
     private const int MOVING = 1;
     private const int AIMING = 2;
@@ -31,16 +34,12 @@ public class HumanDecisionMaker : DecisionMaker
 
         myCollider = GetComponent<Collider2D>();
         lineRenderer = GetComponent<LineRenderer>();
+        aim.SetActive(false);
+
     }
 
     void Update()
     {
-        bool overSelf = myCollider.OverlapPoint(BattleManager.input.InputPosition());
-        if (BattleManager.input.TapEnded() && overSelf)
-        {
-            Deselect();
-        }
-
         if (!IsSelected())
         {
             ShowSelectors();
@@ -58,7 +57,31 @@ public class HumanDecisionMaker : DecisionMaker
         }
     }
 
+    private bool InputOverSelf()
+    {
+        return myCollider.OverlapPoint(BattleManager.input.InputPosition());
+    }
+
     private void UpdateMove()
+    {
+        if (BattleManager.input.IsDragging())
+        {
+            AimMove();
+        }
+        else if (BattleManager.input.DragEnded())
+        {
+            if (InputOverSelf())
+            {
+                Deselect();
+            }
+            else
+            {
+                Move();
+            }
+        }
+    }
+
+    private void AimMove()
     {
         Vector3 inputPosition = BattleManager.input.InputPosition();
         inputPosition.z = transform.position.z;
@@ -67,28 +90,62 @@ public class HumanDecisionMaker : DecisionMaker
         lineRenderer.SetPositions(positions);
     }
 
+    public void Move()
+    {
+        //ship.Move();
+    }
+
     private void UpdateAim()
     {
-        if (BattleManager.input.TapEnded())
+        if (BattleManager.input.IsDragging())
         {
-            ship.Aim(BattleManager.input.InputPosition());
-            ship.Shoot();
-            Deselect();
-        }
-        else if (BattleManager.input.IsDragging())
-        {
-            ship.Aim(BattleManager.input.InputPosition());
+            Aim(BattleManager.input.InputPosition());
         }
         else if (BattleManager.input.DragEnded())
         {
-            ship.Shoot();
+            Deselect();
+            if (!InputOverSelf())
+            {
+                Shoot();
+            }
         }
+    }
+
+    public void Aim(Vector3 point)
+    {
+        Vector3 absoluteDirection = point - transform.position;
+        aimAngle = FindAimAngle(absoluteDirection);
+
+        Quaternion absoluteQuaternion = Quaternion.Euler(0, 0, aimAngle);
+        aim.transform.rotation = absoluteQuaternion;
+
+        Vector3 relativeDirection = aim.transform.localRotation * Vector2.up;
+
+        // Don't account for z when normalizing
+        relativeDirection.z = 0;
+
+        aim.transform.localPosition = relativeDirection.normalized * ship.aimDistance;
+    }
+
+    public void Shoot()
+    {
+        ship.Shoot(aimAngle);
+    }
+
+    public float FindAimAngle(Vector2 direction)
+    {
+        return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
     }
 
     private void ShowAim()
     {
         HideSelectors();
-        ship.SetAimActive(true);
+        SetAimActive(true);
+    }
+
+    public void SetAimActive(bool active)
+    {
+        aim.SetActive(active);
     }
 
     private void HideSelectors()
@@ -99,7 +156,7 @@ public class HumanDecisionMaker : DecisionMaker
 
     private void ShowSelectors()
     {
-        ship.SetAimActive(false);
+        SetAimActive(false);
 
         actionSelectors[0].SetActive(true);
         actionSelectors[1].SetActive(true);
