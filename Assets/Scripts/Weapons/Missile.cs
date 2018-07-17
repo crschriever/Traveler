@@ -14,6 +14,9 @@ public class Missile : MonoBehaviour
 
     private GravityEffected gravity;
 
+    [SerializeField]
+    private ParticleSystem explosionPrefab;
+
     private float timeLeft;
 
     // Use this for initialization
@@ -42,6 +45,14 @@ public class Missile : MonoBehaviour
         gravity.FixedUpdate();
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.otherCollider.tag == "Inanimate" || collision.otherCollider.tag == "Ship")
+        {
+            Explode();
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Inanimate" || other.tag == "Ship")
@@ -52,6 +63,8 @@ public class Missile : MonoBehaviour
 
     private void Explode()
     {
+        ParticleSystem explosion = Instantiate(explosionPrefab);
+        explosion.transform.position = transform.position;
         Destroy(gameObject);
     }
 

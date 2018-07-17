@@ -58,3 +58,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Explosion
+    uniqueID: 707059409
+    locked: 0

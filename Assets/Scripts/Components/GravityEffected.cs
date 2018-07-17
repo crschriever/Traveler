@@ -24,7 +24,7 @@ public class GravityEffected
             Vector2 direction = distance.normalized;
             float distanceMagnitude = distance.magnitude;
 
-            float masses = rigidbody.mass * gravitySource.GetComponent<Rigidbody2D>().mass;
+            float masses = rigidbody.mass * gravitySource.GetComponent<GravitySource>().mass;
             float inverseDistanceSquared = Mathf.Pow(distanceMagnitude, -RADIUS_POWER);
 
             float force = BattleManager.G * masses * inverseDistanceSquared;
