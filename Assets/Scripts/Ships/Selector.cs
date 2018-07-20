@@ -2,18 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(HumanDecisionMaker))]
+[RequireComponent(typeof(Collider2D))]
 public class Selector : MonoBehaviour
 {
 
-    public HumanDecisionMaker decisionMaker;
+    private HumanDecisionMaker decisionMaker;
 
-    public int action;
+    private ShipAction action;
 
-    Collider2D myCollider;
+    private Collider2D myCollider;
 
     void Start()
     {
         myCollider = GetComponent<Collider2D>();
+        decisionMaker = GetComponentInParent<HumanDecisionMaker>();
+        action = GetComponent<ShipAction>();
+        if (action == null)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
