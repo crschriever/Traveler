@@ -64,7 +64,6 @@ public class MoveAction : ShipAction
         float shipHeight = ship.GetCollider2D().bounds.extents.y;
         bool hit = ship.DetectHit(direction, distance + shipHeight);
 
-        Debug.Log(distance + ", " + shipHeight);
         // Dots
         for (int i = 0; i < (distance - shipHeight * 2) / dotDistance && i < maxDotCount; i++)
         {

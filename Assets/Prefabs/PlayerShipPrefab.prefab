@@ -332,6 +332,8 @@ MonoBehaviour:
   moveMask:
     serializedVersion: 2
     m_Bits: 256
+  turnRate: 0.08
+  moveRate: 0.001
 --- !u!114 &114498520994888966
 MonoBehaviour:
   m_ObjectHideFlags: 1

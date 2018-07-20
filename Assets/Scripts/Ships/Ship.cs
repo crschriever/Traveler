@@ -14,17 +14,27 @@ public class Ship : MonoBehaviour
 
     private Sprite backgroundSprite;
 
+    private bool moving = false;
+    public float turnRate = .1f;
+    public float moveRate = .01f;
+
+    private Vector3 desiredPosition;
+    private Quaternion desiredRotation;
+
     // Use this for initialization
     void Awake()
     {
         myCollider = GetComponent<Collider2D>();
         backgroundSprite = transform.Find("Ship Body").GetComponent<SpriteRenderer>().sprite;
-        Debug.Log(backgroundSprite);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (moving)
+        {
+            StartCoroutine("MoveRoutine");
+        }
     }
 
     public void Shoot(float angle)
@@ -44,8 +54,26 @@ public class Ship : MonoBehaviour
 
     public void Move(Vector3 point, Quaternion rotation)
     {
-        transform.position = point;
-        transform.rotation = rotation;
+        desiredPosition = point;
+        desiredRotation = rotation;
+        moving = true;
+    }
+
+    private IEnumerator MoveRoutine()
+    {
+        while (!Quaternion.Equals(desiredRotation, transform.rotation))
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, turnRate);
+            yield return null;
+        }
+
+        while (!Quaternion.Equals(desiredPosition, transform.position))
+        {
+            transform.position = Vector3.MoveTowards(transform.position, desiredPosition, moveRate);
+            yield return null;
+        }
+
+        moving = false;
     }
 
     public float FindAimAngle(Vector2 direction)
