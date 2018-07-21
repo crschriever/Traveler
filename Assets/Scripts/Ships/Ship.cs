@@ -56,15 +56,19 @@ public class Ship : MonoBehaviour
 
     private void Move()
     {
-        if (!Quaternion.Equals(desiredRotation, transform.rotation))
+        if (!Mathf.Approximately(transform.rotation.eulerAngles.z, desiredRotation.eulerAngles.z))
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, turnRate * Time.fixedDeltaTime);
             // Debug.Log("Rotate");
             // yield return null;
             return;
         }
+        else
+        {
+            transform.rotation = desiredRotation;
+        }
 
-        if (!Quaternion.Equals(desiredPosition, transform.position))
+        if (!Vector2.Equals(desiredPosition, transform.position))
         {
             transform.position = Vector3.MoveTowards(transform.position, desiredPosition, moveRate * Time.fixedDeltaTime);
             //Debug.Log("Move");

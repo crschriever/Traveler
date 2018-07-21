@@ -89,7 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 000ccc3c76d884c128a6c01fff8035ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  STARTING_VELOCITY: 8
+  STARTING_VELOCITY: 10
+  MIN_VELOCITY: 6
+  NO_EFFECT_TIME: 0
   LIFE_TIME: 6
   explosionPrefab: {fileID: 198150097687924528, guid: 3bf92e1c4b209474d8d1dbd12babd30d,
     type: 2}
