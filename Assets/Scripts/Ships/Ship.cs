@@ -117,5 +117,10 @@ public class Ship : MonoBehaviour
     {
         return myCollider;
     }
+
+    public bool CanTakeAction()
+    {
+        return !moving;
+    }
 }
 

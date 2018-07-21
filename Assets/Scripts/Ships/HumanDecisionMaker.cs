@@ -19,25 +19,34 @@ public class HumanDecisionMaker : DecisionMaker
 
     void Update()
     {
-        if (GetSelectedAction() == null)
-        {
-            ShowSelectors();
-            return;
-        }
-
-        if (BattleManager.input.IsDragging())
+        if (!ship.CanTakeAction())
         {
             HideSelectors();
-            GetSelectedAction().Drag(InputOverSelf());
         }
-        else if (BattleManager.input.DragEnded())
+        else
         {
-            GetSelectedAction().DragEnded(InputOverSelf());
-            Deselect();
-        }
-        else if (BattleManager.input.TapEnded())
-        {
-            Deselect();
+
+            if (GetSelectedAction() == null)
+            {
+                ShowSelectors();
+                return;
+            }
+
+            if (BattleManager.input.IsDragging())
+            {
+                HideSelectors();
+                GetSelectedAction().Drag(InputOverSelf());
+            }
+            else if (BattleManager.input.DragEnded())
+            {
+                GetSelectedAction().DragEnded(InputOverSelf());
+                Deselect();
+            }
+            else if (BattleManager.input.TapEnded())
+            {
+                Deselect();
+            }
+
         }
     }
 
@@ -72,6 +81,5 @@ public class HumanDecisionMaker : DecisionMaker
     {
         GetSelectedAction().Deselect();
         SetSelectedAction(null);
-        ShowSelectors();
     }
 }
