@@ -5,7 +5,9 @@ using UnityEngine;
 public class Missile : MonoBehaviour
 {
 
-    public int STARTING_VELOCITY = 7;
+    public int STARTING_VELOCITY = 10;
+    public int MIN_VELOCITY = 6;
+    public float NO_EFFECT_TIME = .02f;
     public int LIFE_TIME = 3;
 
     private Ship parentShip;
@@ -18,6 +20,7 @@ public class Missile : MonoBehaviour
     private ParticleSystem explosionPrefab;
 
     private float timeLeft;
+    private float noEffectTimeLeft;
 
     private bool initialParentCollide = true;
 
@@ -25,6 +28,7 @@ public class Missile : MonoBehaviour
     void Start()
     {
         timeLeft = LIFE_TIME;
+        noEffectTimeLeft = NO_EFFECT_TIME;
         rigidbody = GetComponent<Rigidbody2D>();
         gravity = new GravityEffected(transform, rigidbody);
 
@@ -35,6 +39,7 @@ public class Missile : MonoBehaviour
     void Update()
     {
         timeLeft -= Time.deltaTime;
+        noEffectTimeLeft -= Time.deltaTime;
 
         if (timeLeft <= 0)
         {
@@ -44,7 +49,14 @@ public class Missile : MonoBehaviour
 
     void FixedUpdate()
     {
-        gravity.FixedUpdate();
+        if (!initialParentCollide && noEffectTimeLeft <= 0)
+        {
+            gravity.FixedUpdate();
+            if (Mathf.Abs(rigidbody.velocity.magnitude) < MIN_VELOCITY)
+            {
+                rigidbody.velocity = rigidbody.velocity.normalized * MIN_VELOCITY;
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

@@ -5,7 +5,7 @@ using UnityEngine;
 public class GravityEffected
 {
 
-    const float RADIUS_POWER = 5.0f / 2.0f;
+    const float RADIUS_POWER = 2.0f;
 
     private Transform transform;
     private Rigidbody2D rigidbody;
