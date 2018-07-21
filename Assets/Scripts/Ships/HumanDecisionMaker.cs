@@ -6,6 +6,7 @@ using UnityEngine;
 public class HumanDecisionMaker : DecisionMaker
 {
     public GameObject[] actionSelectors;
+    private ShipAction[] actions;
     private ShipAction selectedAction = null;
 
     private Collider2D myCollider;
@@ -15,6 +16,12 @@ public class HumanDecisionMaker : DecisionMaker
         base.Start();
 
         myCollider = GetComponent<Collider2D>();
+
+        actions = new ShipAction[actionSelectors.Length];
+        for (int i = 0; i < actionSelectors.Length; i++)
+        {
+            actions[i] = actionSelectors[i].GetComponent<ShipAction>();
+        }
     }
 
     void Update()
@@ -28,7 +35,8 @@ public class HumanDecisionMaker : DecisionMaker
 
             if (GetSelectedAction() == null)
             {
-                ShowSelectors();
+                // Should happen every update that an action can be shown
+                TryShowSelectors();
                 return;
             }
 
@@ -57,14 +65,18 @@ public class HumanDecisionMaker : DecisionMaker
 
     private void HideSelectors()
     {
-        actionSelectors[0].SetActive(false);
-        actionSelectors[1].SetActive(false);
+        foreach (ShipAction action in actions)
+        {
+            action.Hide();
+        }
     }
 
-    private void ShowSelectors()
+    private void TryShowSelectors()
     {
-        actionSelectors[0].SetActive(true);
-        actionSelectors[1].SetActive(true);
+        foreach (ShipAction action in actions)
+        {
+            action.Show();
+        }
     }
 
     public void SetSelectedAction(ShipAction selectedAction)

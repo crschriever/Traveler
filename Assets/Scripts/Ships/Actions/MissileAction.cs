@@ -54,6 +54,7 @@ public class MissileAction : ShipAction
     public void Shoot()
     {
         ship.Shoot(aimAngle);
+        ability.UseAbility();
     }
 
 }

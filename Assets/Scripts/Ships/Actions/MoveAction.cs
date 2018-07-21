@@ -25,6 +25,7 @@ public class MoveAction : ShipAction
         dots = new GameObject[maxDotCount];
         shipOutline = GetShipOutline();
         shipOutline.SetActive(false);
+
     }
 
     public override void Drag(bool overShip)
@@ -109,6 +110,7 @@ public class MoveAction : ShipAction
     public void Move()
     {
         ship.Move(ship.transform.position + direction.normalized * distance, Quaternion.FromToRotation(Vector3.up, direction));
+        ability.UseAbility();
     }
 
     public GameObject GetShipOutline()

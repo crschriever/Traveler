@@ -58,6 +58,8 @@ GameObject:
   - component: {fileID: 61292296075292402}
   - component: {fileID: 120484391584459184}
   - component: {fileID: 114569227792158914}
+  - component: {fileID: 114746502670330474}
+  - component: {fileID: 114031823962528334}
   m_Layer: 0
   m_Name: PlayerShipPrefab
   m_TagString: Ship
@@ -191,8 +193,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111106327955396}
-  m_LocalRotation: {x: 0, y: 0, z: -0.60471076, w: 0.7964452}
-  m_LocalPosition: {x: 4.5169783, y: -2.2748816, z: -1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: -6.69, y: -5.57, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4736625867734926}
@@ -240,7 +242,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.069791436, y: -0.14830697}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -251,7 +253,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
+  m_Size: {x: 0.97447956, y: 1.0966139}
   m_EdgeRadius: 0
 --- !u!61 &61292296075292402
 BoxCollider2D:
@@ -290,7 +292,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.13958335}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -301,8 +303,21 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
+  m_Size: {x: 0.97447956, y: 1.0791668}
   m_EdgeRadius: 0
+--- !u!114 &114031823962528334
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1111106327955396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b010beeabaf696944a57d6f8ad390c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Missile
+  coolDownTime: 3
 --- !u!114 &114227171312266826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -314,6 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 529d4b4916606b8498a327b1038b634c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ability: {fileID: 114031823962528334}
   aim: {fileID: 1231464116957806}
 --- !u!114 &114303399901008312
 MonoBehaviour:
@@ -345,6 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4639f8a569063034f83fa20996790754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ability: {fileID: 114746502670330474}
   dotPrefab: {fileID: 1342325989803154, guid: ef821fa89a9376e4aa7b758caeec99ea, type: 2}
   dotDistance: 0.5
   maxDotCount: 50
@@ -376,6 +393,19 @@ MonoBehaviour:
   actionSelectors:
   - {fileID: 1916875871700274}
   - {fileID: 1092006215247780}
+--- !u!114 &114746502670330474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1111106327955396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b010beeabaf696944a57d6f8ad390c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Move
+  coolDownTime: 0
 --- !u!114 &114810937920642614
 MonoBehaviour:
   m_ObjectHideFlags: 1
