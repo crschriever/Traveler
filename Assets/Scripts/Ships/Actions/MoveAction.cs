@@ -17,6 +17,7 @@ public class MoveAction : ShipAction
 
     private Vector3 direction;
     private float distance;
+    private bool hit;
 
     public override void Start()
     {
@@ -35,7 +36,7 @@ public class MoveAction : ShipAction
     {
         if (!overShip)
         {
-            if (!ship.DetectHit(direction, distance))
+            if (!hit)
             {
                 Move();
             }
@@ -62,7 +63,7 @@ public class MoveAction : ShipAction
         distance = direction.magnitude;
 
         float shipHeight = ship.GetCollider2D().bounds.extents.y;
-        bool hit = ship.DetectHit(direction, distance + shipHeight);
+        hit = ship.DetectHit(direction, distance + shipHeight);
 
         // Dots
         for (int i = 0; i < (distance - shipHeight * 2) / dotDistance && i < maxDotCount; i++)

@@ -19,6 +19,8 @@ public class Missile : MonoBehaviour
 
     private float timeLeft;
 
+    private bool initialParentCollide = true;
+
     // Use this for initialization
     void Start()
     {
@@ -45,16 +47,20 @@ public class Missile : MonoBehaviour
         gravity.FixedUpdate();
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.otherCollider.tag == "Inanimate" || collision.otherCollider.tag == "Ship")
-        {
-            Explode();
-        }
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
+        // When being launched, we start inside parent ship. Don't explode then.
+        if (other.gameObject == parentShip.gameObject && initialParentCollide)
+        {
+            return;
+        }
+        else
+        {
+            initialParentCollide = false;
+        }
+
+        Debug.Log(other.gameObject.name);
+
         if (other.tag == "Inanimate" || other.tag == "Ship")
         {
             Explode();

@@ -29,11 +29,11 @@ public class Ship : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (moving)
         {
-            StartCoroutine("MoveRoutine");
+            Move();
         }
     }
 
@@ -44,12 +44,7 @@ public class Ship : MonoBehaviour
 
         newMissile.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        Vector3 direction = newMissile.transform.rotation * Vector2.up;
-
-        // Don't account for z when normalizing
-        direction.z = 0;
-
-        newMissile.transform.position = transform.position + (direction.normalized * aimDistance * transform.localScale.magnitude);
+        newMissile.transform.position = transform.position;
     }
 
     public void Move(Vector3 point, Quaternion rotation)
@@ -59,19 +54,25 @@ public class Ship : MonoBehaviour
         moving = true;
     }
 
-    private IEnumerator MoveRoutine()
+    private void Move()
     {
-        while (!Quaternion.Equals(desiredRotation, transform.rotation))
+        if (!Quaternion.Equals(desiredRotation, transform.rotation))
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, turnRate);
-            yield return null;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRotation, turnRate * Time.fixedDeltaTime);
+            // Debug.Log("Rotate");
+            // yield return null;
+            return;
         }
 
-        while (!Quaternion.Equals(desiredPosition, transform.position))
+        if (!Quaternion.Equals(desiredPosition, transform.position))
         {
-            transform.position = Vector3.MoveTowards(transform.position, desiredPosition, moveRate);
-            yield return null;
+            transform.position = Vector3.MoveTowards(transform.position, desiredPosition, moveRate * Time.fixedDeltaTime);
+            //Debug.Log("Move");
+            // yield return null;
+            return;
         }
+
+        //Debug.Log("Done");
 
         moving = false;
     }

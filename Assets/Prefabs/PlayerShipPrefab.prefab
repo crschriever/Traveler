@@ -191,8 +191,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111106327955396}
-  m_LocalRotation: {x: -0, y: -0, z: -0.29490584, w: 0.95552635}
-  m_LocalPosition: {x: -9.38, y: -5.7, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: -6.69, y: -5.57, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4736625867734926}
@@ -331,9 +331,9 @@ MonoBehaviour:
   aimDistance: 1.35
   moveMask:
     serializedVersion: 2
-    m_Bits: 256
-  turnRate: 0.08
-  moveRate: 0.001
+    m_Bits: 768
+  turnRate: 30
+  moveRate: 3
 --- !u!114 &114498520994888966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -402,7 +402,7 @@ LineRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 9e745c0820b43407b849e5cbd598ba7b, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

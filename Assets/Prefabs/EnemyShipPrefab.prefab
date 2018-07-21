@@ -142,6 +142,8 @@ MonoBehaviour:
   moveMask:
     serializedVersion: 2
     m_Bits: 0
+  turnRate: 0.1
+  moveRate: 0.01
 --- !u!212 &212760220027527854
 SpriteRenderer:
   m_ObjectHideFlags: 1
