@@ -71,8 +71,6 @@ public class Missile : MonoBehaviour
             initialParentCollide = false;
         }
 
-        Debug.Log(other.gameObject.name);
-
         if (other.tag == "Inanimate" || other.tag == "Ship")
         {
             Explode();

@@ -24,7 +24,6 @@ public class Ability : MonoBehaviour
 
     public bool IsReady()
     {
-        Debug.Log(coolDownTimeRemaining);
         return coolDownTimeRemaining <= 0;
     }
 }

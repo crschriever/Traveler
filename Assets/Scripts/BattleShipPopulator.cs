@@ -8,8 +8,12 @@ public class BattleShipPopulator : ShipPopulator
     public GameObject playerShip;
     public GameObject enemyShip;
 
-    public override GameObject[] SpawnShips()
+    public override Dictionary<string, GameObject[]> SpawnShips()
     {
-        return new GameObject[] { playerShip, enemyShip };
+        Dictionary<string, GameObject[]> ships = new Dictionary<string, GameObject[]>();
+        ships[BattleManager.instance.playerTeamName] = new GameObject[] { playerShip };
+        ships[BattleManager.instance.enemyTeamName] = new GameObject[] { enemyShip };
+
+        return ships;
     }
 }

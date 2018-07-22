@@ -26,6 +26,9 @@ public class Ship : MonoBehaviour
     {
         myCollider = GetComponent<Collider2D>();
         backgroundSprite = transform.Find("Ship Body").GetComponent<SpriteRenderer>().sprite;
+
+        desiredPosition = transform.position;
+        desiredRotation = transform.rotation;
     }
 
     // Update is called once per frame
@@ -47,7 +50,13 @@ public class Ship : MonoBehaviour
         newMissile.transform.position = transform.position;
     }
 
-    public void Move(Vector3 point, Quaternion rotation)
+    public void Move(Vector3 direction, float distance)
+    {
+        direction.z = 0;
+        Move(transform.position + direction.normalized * distance, Quaternion.FromToRotation(Vector3.up, direction));
+    }
+
+    public void Move(Vector2 point, Quaternion rotation)
     {
         desiredPosition = point;
         desiredRotation = rotation;
@@ -86,7 +95,28 @@ public class Ship : MonoBehaviour
         return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
     }
 
-    public bool DetectHit(Vector3 direction, float distance)
+    public bool CanMove(Vector3 direction, float distance)
+    {
+        RaycastHit2D hit = MoveHit(direction, distance);
+
+        return hit.collider != null;
+    }
+
+    public float PossibleMoveDistance(Vector3 direction, float distance)
+    {
+        RaycastHit2D hit = MoveHit(direction, distance);
+
+        if (hit.collider == null)
+        {
+            return distance;
+        }
+        else
+        {
+            return hit.distance;
+        }
+    }
+
+    public RaycastHit2D MoveHit(Vector3 direction, float distance)
     {
         direction.z = 0;
         float shipWidth = myCollider.bounds.extents.x / 2;
@@ -98,7 +128,7 @@ public class Ship : MonoBehaviour
         if (leftHit.collider != null)
         {
             Debug.DrawLine(transform.position - spread, leftHit.point, Color.green, 0, false);
-            return true;
+            return leftHit;
         }
 
         RaycastHit2D rightHit = Physics2D.Raycast(transform.position + spread, direction, distance, moveMask);
@@ -106,10 +136,9 @@ public class Ship : MonoBehaviour
         if (rightHit.collider != null)
         {
             Debug.DrawLine(transform.position + spread, rightHit.point, Color.green, 0, false);
-            return true;
         }
 
-        return false;
+        return rightHit;
     }
 
     public Sprite GetBackgroundSprite()
@@ -125,6 +154,11 @@ public class Ship : MonoBehaviour
     public bool CanTakeAction()
     {
         return !moving;
+    }
+
+    public Vector3 GetDesiredPosition()
+    {
+        return desiredPosition;
     }
 }
 

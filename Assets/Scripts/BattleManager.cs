@@ -6,6 +6,9 @@ public class BattleManager : MonoBehaviour
 {
     public static float G = 1.5f;
 
+    public string playerTeamName;
+    public string enemyTeamName;
+
     public static BattleManager instance = null;
     public static InputManager input;
 
@@ -13,7 +16,8 @@ public class BattleManager : MonoBehaviour
 
     public GameObject map;
 
-    public List<Ship> ships;
+    // Team => Ship
+    public Dictionary<string, List<Ship>> ships = new Dictionary<string, List<Ship>>();
     public GameObject[] gravitySources;
 
     // Use this for initialization
@@ -33,10 +37,16 @@ public class BattleManager : MonoBehaviour
                 input = new LaptopInput();
             }
 
-            GameObject[] shipGameObjects = shipPopulator.SpawnShips();
-            foreach (GameObject shipGameObject in shipGameObjects)
+            // Get ships as a Dictionary ship team => ship[]
+            Dictionary<string, GameObject[]> shipGameObjects = shipPopulator.SpawnShips();
+            foreach (KeyValuePair<string, GameObject[]> team in shipGameObjects)
             {
-                ships.Add(shipGameObject.GetComponent<Ship>());
+                List<Ship> shipsOnTeam = new List<Ship>();
+                for (int i = 0; i < team.Value.Length; i++)
+                {
+                    shipsOnTeam.Add(team.Value[i].GetComponent<Ship>());
+                }
+                ships[team.Key] = shipsOnTeam;
             }
         }
         else if (instance != this)
@@ -49,5 +59,25 @@ public class BattleManager : MonoBehaviour
     void Update()
     {
         input.Update();
+    }
+
+    public Vector3 FindTeamMiddle(string teamName)
+    {
+        List<Ship> teamShips = ships[teamName];
+        Vector3 sum = Vector2.zero;
+
+        foreach (Ship ship in teamShips)
+        {
+            sum += ship.GetDesiredPosition();
+        }
+
+        sum.z = 0;
+
+        return sum / teamShips.Count;
+    }
+
+    public Vector3 FindPlayerShipsMiddle()
+    {
+        return FindTeamMiddle(playerTeamName);
     }
 }

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class ShipPopulator : MonoBehaviour
 {
-    public abstract GameObject[] SpawnShips();
+    public abstract Dictionary<string, GameObject[]> SpawnShips();
 }

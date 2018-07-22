@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4130180674606138}
   - component: {fileID: 212164859444734582}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ship Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 114569227792158914}
   - component: {fileID: 114746502670330474}
   - component: {fileID: 114031823962528334}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerShipPrefab
   m_TagString: Ship
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4736625867734926}
   - component: {fileID: 212708177538993462}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4386264480773556}
   - component: {fileID: 212509324037516490}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ship Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
