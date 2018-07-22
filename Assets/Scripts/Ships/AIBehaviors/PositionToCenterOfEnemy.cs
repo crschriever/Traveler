@@ -34,7 +34,7 @@ public class PositionToCenterOfEnemy : AIBehavior
             return false;
         }
 
-        Vector3 playerShipsMidPoint = BattleManager.instance.FindPlayerShipsMiddle();
+        Vector3 playerShipsMidPoint = BattleManager.instance.FindPlayerShipsDesiredMiddle();
         Vector3 displacement = ship.transform.position - playerShipsMidPoint;
         if (Mathf.Abs(displacement.magnitude) < minDistance)
         {

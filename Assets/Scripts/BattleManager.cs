@@ -61,7 +61,7 @@ public class BattleManager : MonoBehaviour
         input.Update();
     }
 
-    public Vector3 FindTeamMiddle(string teamName)
+    public Vector3 FindTeamDesiredMiddle(string teamName)
     {
         List<Ship> teamShips = ships[teamName];
         Vector3 sum = Vector2.zero;
@@ -69,6 +69,26 @@ public class BattleManager : MonoBehaviour
         foreach (Ship ship in teamShips)
         {
             sum += ship.GetDesiredPosition();
+        }
+
+        sum.z = 0;
+
+        return sum / teamShips.Count;
+    }
+
+    public Vector3 FindPlayerShipsDesiredMiddle()
+    {
+        return FindTeamDesiredMiddle(playerTeamName);
+    }
+
+    public Vector3 FindTeamMiddle(string teamName)
+    {
+        List<Ship> teamShips = ships[teamName];
+        Vector3 sum = Vector2.zero;
+
+        foreach (Ship ship in teamShips)
+        {
+            sum += ship.transform.position;
         }
 
         sum.z = 0;

@@ -144,8 +144,8 @@ MonoBehaviour:
   wantedDistance: 7
   moveWaitTime: 2
   minMoveDistance: 1.5
-  minAngleOffset: -20
-  maxAngleOffset: 20
+  minAngleOffset: -45
+  maxAngleOffset: 45
   randomAngleSamples: 5
   collisionPadding: 0.5
 --- !u!114 &114686332078069306
