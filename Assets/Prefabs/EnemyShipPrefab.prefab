@@ -139,10 +139,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e669f4112dbfb44698bae584f83112a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistance: 5
-  maxDistance: 8
+  minDistance: 4
+  maxDistance: 10
+  wantedDistance: 7
   moveWaitTime: 2
-  collisionPadding: 0
+  minMoveDistance: 1.5
+  minAngleOffset: -20
+  maxAngleOffset: 20
+  randomAngleSamples: 5
+  collisionPadding: 0.5
 --- !u!114 &114686332078069306
 MonoBehaviour:
   m_ObjectHideFlags: 1
