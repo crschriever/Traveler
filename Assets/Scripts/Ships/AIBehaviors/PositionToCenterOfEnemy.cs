@@ -120,4 +120,9 @@ public class PositionToCenterOfEnemy : AIBehavior
         ship.Move(bestDirection, bestDistance);
     }
 
+    public override Ability GetAbility()
+    {
+        return ship.GetAbilityOfType(Ability.Type.Move);
+    }
+
 }

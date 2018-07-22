@@ -58,8 +58,8 @@ GameObject:
   - component: {fileID: 61292296075292402}
   - component: {fileID: 120484391584459184}
   - component: {fileID: 114569227792158914}
-  - component: {fileID: 114746502670330474}
-  - component: {fileID: 114031823962528334}
+  - component: {fileID: 114522984257791564}
+  - component: {fileID: 114919101118517660}
   m_Layer: 10
   m_Name: PlayerShipPrefab
   m_TagString: Ship
@@ -305,19 +305,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.97447956, y: 1.0791668}
   m_EdgeRadius: 0
---- !u!114 &114031823962528334
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1111106327955396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b010beeabaf696944a57d6f8ad390c94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Missile
-  coolDownTime: 3
 --- !u!114 &114227171312266826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -329,7 +316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 529d4b4916606b8498a327b1038b634c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: {fileID: 114031823962528334}
   aim: {fileID: 1231464116957806}
 --- !u!114 &114303399901008312
 MonoBehaviour:
@@ -342,8 +328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014810054395846e5bced3cbe0bcb71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missilePrefab: {fileID: 1013970004599324, guid: 67e6466dc4e3e4a4196853819678ed24,
-    type: 2}
   aimDistance: 1.35
   moveMask:
     serializedVersion: 2
@@ -361,7 +345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4639f8a569063034f83fa20996790754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: {fileID: 114746502670330474}
   dotPrefab: {fileID: 1342325989803154, guid: ef821fa89a9376e4aa7b758caeec99ea, type: 2}
   dotDistance: 0.5
   maxDotCount: 50
@@ -379,6 +362,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f326cbe1dc5d3b9458a365894c35c972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114522984257791564
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1111106327955396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce5861681639774891098c8308b63d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  coolDownTime: 0
 --- !u!114 &114569227792158914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -393,19 +389,6 @@ MonoBehaviour:
   actionSelectors:
   - {fileID: 1916875871700274}
   - {fileID: 1092006215247780}
---- !u!114 &114746502670330474
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1111106327955396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b010beeabaf696944a57d6f8ad390c94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Move
-  coolDownTime: 0
 --- !u!114 &114810937920642614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -417,6 +400,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f326cbe1dc5d3b9458a365894c35c972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114919101118517660
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1111106327955396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e72970e5fcb1140428b8628ff1788483, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  coolDownTime: 3
+  weaponPrefab: {fileID: 1013970004599324, guid: 67e6466dc4e3e4a4196853819678ed24,
+    type: 2}
 --- !u!120 &120484391584459184
 LineRenderer:
   m_ObjectHideFlags: 1

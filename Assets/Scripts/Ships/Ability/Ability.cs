@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class Ability : MonoBehaviour
 {
-    public string name;
+
+    public enum Type
+    {
+        Move, Missile
+    }
+
+    public Type type;
     public float coolDownTime;
     private float coolDownTimeRemaining;
 

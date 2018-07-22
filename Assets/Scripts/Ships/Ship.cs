@@ -5,7 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Ship : MonoBehaviour
 {
-    public GameObject missilePrefab;
+
+    private Ability[] abilities;
+
     public float aimDistance;
 
     public LayerMask moveMask;
@@ -29,6 +31,8 @@ public class Ship : MonoBehaviour
 
         desiredPosition = transform.position;
         desiredRotation = transform.rotation;
+
+        abilities = GetComponents<Ability>();
     }
 
     // Update is called once per frame
@@ -40,7 +44,7 @@ public class Ship : MonoBehaviour
         }
     }
 
-    public void Shoot(float angle)
+    public void Shoot(float angle, GameObject missilePrefab)
     {
         GameObject newMissile = Instantiate(missilePrefab);
         newMissile.GetComponent<Missile>().SetParentShip(this);
@@ -159,6 +163,19 @@ public class Ship : MonoBehaviour
     public Vector3 GetDesiredPosition()
     {
         return desiredPosition;
+    }
+
+    public Ability GetAbilityOfType(Ability.Type type)
+    {
+        foreach (Ability ability in abilities)
+        {
+            if (ability.type == type)
+            {
+                return ability;
+            }
+        }
+
+        throw new System.Exception("Ability not found with type: " + type + " in ship: " + gameObject.name);
     }
 }
 

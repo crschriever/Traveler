@@ -124,4 +124,9 @@ public class MoveAction : ShipAction
         return sprGameObj;
     }
 
+    public override Ability GetAbility()
+    {
+        return ship.GetAbilityOfType(Ability.Type.Move);
+    }
+
 }

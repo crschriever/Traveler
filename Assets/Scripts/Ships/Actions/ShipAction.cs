@@ -5,11 +5,12 @@ using UnityEngine;
 public abstract class ShipAction : MonoBehaviour
 {
     protected Ship ship;
-    public Ability ability;
+    protected Ability ability;
 
     public virtual void Start()
     {
         ship = GetComponentInParent<Ship>();
+        ability = GetAbility();
     }
 
     public virtual void Hide()
@@ -30,5 +31,7 @@ public abstract class ShipAction : MonoBehaviour
     public abstract void DragEnded(bool overShip);
 
     public abstract void Deselect();
+
+    public abstract Ability GetAbility();
 
 }

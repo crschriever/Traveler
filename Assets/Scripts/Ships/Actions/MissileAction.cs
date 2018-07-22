@@ -53,8 +53,13 @@ public class MissileAction : ShipAction
 
     public void Shoot()
     {
-        ship.Shoot(aimAngle);
+        ship.Shoot(aimAngle, ((WeaponAbility)ability).weaponPrefab);
         ability.UseAbility();
+    }
+
+    public override Ability GetAbility()
+    {
+        return ship.GetAbilityOfType(Ability.Type.Missile);
     }
 
 }

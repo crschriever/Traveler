@@ -55,6 +55,8 @@ GameObject:
   - component: {fileID: 61678023070873324}
   - component: {fileID: 114418473219093502}
   - component: {fileID: 114686332078069306}
+  - component: {fileID: 114149411122051318}
+  - component: {fileID: 114322218842257294}
   m_Layer: 9
   m_Name: EnemyShipPrefab
   m_TagString: Ship
@@ -128,6 +130,34 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5508884, y: 1.2201521}
   m_EdgeRadius: 0
+--- !u!114 &114149411122051318
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1808760928573292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce5861681639774891098c8308b63d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  coolDownTime: 0
+--- !u!114 &114322218842257294
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1808760928573292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e72970e5fcb1140428b8628ff1788483, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  coolDownTime: 3
+  weaponPrefab: {fileID: 1013970004599324, guid: 67e6466dc4e3e4a4196853819678ed24,
+    type: 2}
 --- !u!114 &114418473219093502
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -170,7 +200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014810054395846e5bced3cbe0bcb71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missilePrefab: {fileID: 0}
   aimDistance: 0.65
   moveMask:
     serializedVersion: 2

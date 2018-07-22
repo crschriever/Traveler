@@ -24,7 +24,14 @@ public class AIDecisionMaker : DecisionMaker
         bool actionTaken = false;
         for (int i = 0; i < behaviors.Length && !actionTaken; i++)
         {
-            actionTaken = behaviors[i].TakeAction();
+            AIBehavior behavior = behaviors[i];
+
+            if (!behavior.AbilityIsReady())
+            {
+                continue;
+            }
+
+            actionTaken = behavior.TakeAction();
         }
     }
 }

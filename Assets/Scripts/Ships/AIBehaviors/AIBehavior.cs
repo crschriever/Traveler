@@ -5,11 +5,21 @@ using UnityEngine;
 public abstract class AIBehavior : MonoBehaviour
 {
     protected Ship ship;
+    protected Ability ability;
 
     public virtual void Start()
     {
         ship = GetComponent<Ship>();
+        ability = GetAbility();
+    }
+
+    public bool AbilityIsReady()
+    {
+        return ability.IsReady();
     }
 
     public abstract bool TakeAction();
+
+    public abstract Ability GetAbility();
+
 }
