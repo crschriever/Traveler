@@ -194,7 +194,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111106327955396}
   m_LocalRotation: {x: -0, y: -0, z: -0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -6.69, y: -5.57, z: -1}
+  m_LocalPosition: {x: -6.69, y: -5.57, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4736625867734926}
@@ -331,7 +331,7 @@ MonoBehaviour:
   aimDistance: 1.35
   moveMask:
     serializedVersion: 2
-    m_Bits: 1792
+    m_Bits: 768
   turnRate: 45
   moveRate: 3
 --- !u!114 &114498520994888966

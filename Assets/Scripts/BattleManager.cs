@@ -47,6 +47,7 @@ public class BattleManager : MonoBehaviour
                     Ship ship = team.Value[i].GetComponent<Ship>();
                     shipsOnTeam.Add(ship);
                     ship.SetTeamName(team.Key);
+                    // Debug.Log(ship + ": " + team.Key);
                 }
                 ships[team.Key] = shipsOnTeam;
             }

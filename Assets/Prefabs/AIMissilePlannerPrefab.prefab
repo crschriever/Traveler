@@ -88,7 +88,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63fafe2aa0937b84c8ee4a31a590d89d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  STARTING_VELOCITY: 10
-  MIN_VELOCITY: 6
-  NO_EFFECT_TIME: 0.1
-  LIFE_TIME: 4
+  startingVelocity: 10
+  minVelocity: 6
+  noEffectTime: 0.1
+  lifeTime: 3
+  dontHitParentTime: 0.1
