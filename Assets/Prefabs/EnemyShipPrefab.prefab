@@ -84,8 +84,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1808760928573292}
-  m_LocalRotation: {x: 0, y: 0, z: 0.96864176, w: 0.2484616}
-  m_LocalPosition: {x: -0.3668902, y: -2.113297, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 3.1, y: 4.2, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4865024194434764}
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  coolDownTime: 3
+  coolDownTime: 8
   weaponPrefab: {fileID: 1013970004599324, guid: 67e6466dc4e3e4a4196853819678ed24,
     type: 2}
 --- !u!114 &114418473219093502
@@ -171,8 +171,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minDistance: 4
-  maxDistance: 15
-  wantedDistance: 8
+  maxDistance: 20
+  wantedDistance: 10
   moveWaitTime: 2
   minMoveDistance: 1.5
   minAngleOffset: -45
@@ -208,7 +208,7 @@ MonoBehaviour:
     type: 2}
   fireWaitTime: 8
   sampleAmount: 30
-  hitRate: 0.2
+  hitRate: 0.8
   missOffset: 5
 --- !u!114 &114963704440024536
 MonoBehaviour:

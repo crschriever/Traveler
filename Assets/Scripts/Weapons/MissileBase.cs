@@ -5,10 +5,12 @@ using UnityEngine;
 public abstract class MissileBase : MonoBehaviour
 {
 
-    public int STARTING_VELOCITY = 10;
-    public int MIN_VELOCITY = 6;
-    public float NO_EFFECT_TIME = 0;
-    public int LIFE_TIME = 6;
+    public int startingVelocity = 10;
+    public int minVelocity = 6;
+    public float noEffectTime = .1f;
+    public int lifeTime = 6;
+
+    public float dontHitParentTime = .1f;
 
     protected Ship parentShip;
 
@@ -17,6 +19,7 @@ public abstract class MissileBase : MonoBehaviour
     private GravityEffected gravity;
 
     private float timeLeft;
+    private float dontHitParentTimeLeft;
     private float noEffectTimeLeft;
 
     private bool initialParentCollide = true;
@@ -24,18 +27,20 @@ public abstract class MissileBase : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        timeLeft = LIFE_TIME;
-        noEffectTimeLeft = NO_EFFECT_TIME;
+        timeLeft = lifeTime;
+        dontHitParentTimeLeft = dontHitParentTime;
+        noEffectTimeLeft = noEffectTime;
         rigidbody = GetComponent<Rigidbody2D>();
         gravity = new GravityEffected(transform, rigidbody);
 
-        rigidbody.velocity = STARTING_VELOCITY * transform.up;
+        rigidbody.velocity = startingVelocity * transform.up;
     }
 
     // Update is called once per frame
     void Update()
     {
         timeLeft -= Time.deltaTime;
+        dontHitParentTimeLeft -= Time.deltaTime;
         noEffectTimeLeft -= Time.deltaTime;
 
         if (timeLeft <= 0)
@@ -49,9 +54,9 @@ public abstract class MissileBase : MonoBehaviour
         if (noEffectTimeLeft <= 0)
         {
             gravity.FixedUpdate();
-            if (Mathf.Abs(rigidbody.velocity.magnitude) < MIN_VELOCITY)
+            if (Mathf.Abs(rigidbody.velocity.magnitude) < minVelocity)
             {
-                rigidbody.velocity = rigidbody.velocity.normalized * MIN_VELOCITY;
+                rigidbody.velocity = rigidbody.velocity.normalized * minVelocity;
             }
         }
     }
@@ -66,6 +71,12 @@ public abstract class MissileBase : MonoBehaviour
         else
         {
             initialParentCollide = false;
+        }
+
+        // When being launched make sure we don't splode the parent ship
+        if (other.gameObject == parentShip.gameObject && dontHitParentTimeLeft > 0)
+        {
+            return;
         }
 
         if (other.tag == "Inanimate" || other.tag == "Ship")
