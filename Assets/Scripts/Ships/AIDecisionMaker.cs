@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class AIDecisionMaker : DecisionMaker
 {
-    private AIBehavior[] behaviors;
+    public AIBehavior[] behaviors;
 
     public override void Start()
     {
         base.Start();
-
-        behaviors = GetComponents<AIBehavior>();
     }
 
     void Update()

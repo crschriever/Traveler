@@ -331,7 +331,7 @@ MonoBehaviour:
   aimDistance: 1.35
   moveMask:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 1792
   turnRate: 45
   moveRate: 3
 --- !u!114 &114498520994888966

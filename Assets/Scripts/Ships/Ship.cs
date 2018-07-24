@@ -23,6 +23,8 @@ public class Ship : MonoBehaviour
     private Vector3 desiredPosition;
     private Quaternion desiredRotation;
 
+    private string teamName;
+
     // Use this for initialization
     void Awake()
     {
@@ -47,11 +49,16 @@ public class Ship : MonoBehaviour
     public void Shoot(float angle, GameObject missilePrefab)
     {
         GameObject newMissile = Instantiate(missilePrefab);
-        newMissile.GetComponent<Missile>().SetParentShip(this);
+        ShootInstantiatedMissile(angle, newMissile);
+    }
 
-        newMissile.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    public void ShootInstantiatedMissile(float angle, GameObject missile)
+    {
+        missile.GetComponent<MissileBase>().SetParentShip(this);
 
-        newMissile.transform.position = transform.position;
+        missile.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        missile.transform.position = transform.position;
     }
 
     public void Move(Vector3 direction, float distance)
@@ -176,6 +183,16 @@ public class Ship : MonoBehaviour
         }
 
         throw new System.Exception("Ability not found with type: " + type + " in ship: " + gameObject.name);
+    }
+
+    public string GetTeamName()
+    {
+        return teamName;
+    }
+
+    public void SetTeamName(string name)
+    {
+        teamName = name;
     }
 }
 

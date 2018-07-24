@@ -18,6 +18,11 @@ public abstract class AIBehavior : MonoBehaviour
         return ability.IsReady();
     }
 
+    public Ship GetShip()
+    {
+        return ship;
+    }
+
     public abstract bool TakeAction();
 
     public abstract Ability GetAbility();
